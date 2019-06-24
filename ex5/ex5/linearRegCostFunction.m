@@ -11,6 +11,12 @@ m = length(y); % number of training examples
 % You need to return the following variables correctly 
 J = 0;
 grad = zeros(size(theta));
+J = (sum(((X*theta - y).^2))/(2*m)) + (lambda/(2*m)) * sum(theta(2:end, :).^2);
+
+## Adding a row of zeroes to skip regularization of the first feature
+[row, col] = size(theta);
+theta_zeroed = [zeros(col); theta(2:end, :)];
+grad = (1/m) * sum(((X*theta - y) .* X), 1) + (lambda/m) * theta_zeroed';
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost and gradient of regularized linear 
